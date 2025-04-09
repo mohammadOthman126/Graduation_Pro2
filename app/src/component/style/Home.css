@@ -1,200 +1,199 @@
 /* home2.css */
 .home {
-    font-family: 'Roboto', sans-serif;
-    padding: 5px;
-    background-color: #ECF0F1; /* خلفية هادئة وأنيقة بلون رمادي فاتح */
-    min-height: 100vh;
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 50px;
-    padding: 50px 0;
-    background-color: #2C3E50; /* أزرق داكن */
-    color: white;
-    border-radius: 10px;
-  }
-  
-  .header h1 {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 0;
-  }
-  
-  .header p {
-    font-size: 20px;
-    color: #F5B041; /* بيج فاتح */
-    margin-top: 10px;
-  }
-  
-  .category-selection {
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  .categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .category-btn {
-    padding: 18px 25px;
-    background-color: #34495E; /* لون أغمق للأزرار في الحالة العادية */
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 18px;
-    text-transform: capitalize;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* تأثير الظل */
-  }
-  
-  .category-btn.active {
-    background-color: #27AE60; /* أخضر عند اختيار الزر */
-  }
-  
-  .category-btn:hover {
-    background-color: #2ECC71; /* أخضر فاتح عند التمرير على الزر */
-    transform: scale(1.1); /* تكبير الزر عند التمرير */
-  }
-  
-  .budget-selection {
-    margin: 30px 0;
-    text-align: center;
-  }
-  
-  .budget-selection h2 {
-    font-size: 24px;
-    color: #34495E; /* رمادي داكن */
-  }
-  
-  .budget-selection .range-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .budget-selection input[type="range"] {
-    width: 60%;
-    max-width: 600px;
-    margin: 0;
-    height: 8px;
-    border-radius: 10px;
-    background: #1ABC9C; /* أزرق فاتح */
-    outline: none;
-    transition: background 0.3s ease;
-  }
-  
-  .budget-selection input[type="range"]:hover {
-    background: #16A085; /* أزرق داكن عند التمرير */
-  }
-  
-  .budget-selection .budget-value {
-    font-size: 22px;
-    font-weight: 600;
-    color: #27AE60; /* أخضر زيتوني */
-  }
-  
-  .budget-selection .adjust-buttons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .budget-selection button {
-    padding: 8px 15px;
-    background-color: #34495E; /* أزرق غامق */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .budget-selection button:hover {
-    background-color: #2ECC71; /* أخضر فاتح عند التمرير */
-  }
-  
-  .suggestions-btn {
-    display: block;
-    margin: 30px auto;
-    padding: 15px 30px;
-    background-color: #27AE60; /* أخضر زيتوني */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 12px;
-    font-size: 18px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
-  
-  .suggestions-btn:hover {
-    background-color: #2ECC71; /* أخضر مائل للإضاءة عند التمرير */
-    transform: scale(1.05);
-  }
-  
-  .suggestions {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  footer {
-    background-color: #2C3E50; /* نفس الأزرق الداكن في الهيدر */
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 50px;
-    border-radius: 10px;
-  }
+  font-family: 'Roboto', sans-serif;
+  padding: 5px;
+  background-color: #ECF0F1; /* خلفية هادئة وأنيقة بلون رمادي فاتح */
+  min-height: 100vh;
+}
 
-  .suggestions-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-  }
-  
-  .suggestion-item {
-    background-color: #34495E; /* خلفية داكنة للمقترحات */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: white;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-  }
-  
-  .suggestion-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .suggestion-number {
-    font-size: 24px;
-    font-weight: bold;
-    color: #F5B041; /* لون بيج مميز */
-    margin-bottom: 10px;
-  }
-  
-  .suggestion-details h3 {
-    font-size: 22px;
-    margin: 0;
-    color: #2ECC71; /* أخضر */
-  }
-  
-  .suggestion-details p {
-    font-size: 18px;
-    margin-top: 5px;
-  }
-  
-  .suggestion-details p:last-child {
-    font-weight: bold;
-    color: #27AE60; /* أخضر زيتوني */
-  }
-  
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 50px 0;
+  background-color: #2C3E50; /* أزرق داكن */
+  color: white;
+  border-radius: 10px;
+}
+
+.header h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.header p {
+  font-size: 20px;
+  color: #F5B041; /* بيج فاتح */
+  margin-top: 10px;
+}
+
+.category-selection {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.category-btn {
+  padding: 18px 25px;
+  background-color: #34495E; /* لون أغمق للأزرار في الحالة العادية */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 18px;
+  text-transform: capitalize;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* تأثير الظل */
+}
+
+.category-btn.active {
+  background-color: #27AE60; /* أخضر عند اختيار الزر */
+}
+
+.category-btn:hover {
+  background-color: #2ECC71; /* أخضر فاتح عند التمرير على الزر */
+  transform: scale(1.1); /* تكبير الزر عند التمرير */
+}
+
+.budget-selection {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.budget-selection h2 {
+  font-size: 24px;
+  color: #34495E; /* رمادي داكن */
+}
+
+.budget-selection .range-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.budget-selection input[type="range"] {
+  width: 60%;
+  max-width: 600px;
+  margin: 0;
+  height: 8px;
+  border-radius: 10px;
+  background: #1ABC9C; /* أزرق فاتح */
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.budget-selection input[type="range"]:hover {
+  background: #16A085; /* أزرق داكن عند التمرير */
+}
+
+.budget-selection .budget-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #27AE60; /* أخضر زيتوني */
+}
+
+.budget-selection .adjust-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.budget-selection button {
+  padding: 8px 15px;
+  background-color: #34495E; /* أزرق غامق */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.budget-selection button:hover {
+  background-color: #2ECC71; /* أخضر فاتح عند التمرير */
+}
+
+.suggestions-btn {
+  display: block;
+  margin: 30px auto;
+  padding: 15px 30px;
+  background-color: #27AE60; /* أخضر زيتوني */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.suggestions-btn:hover {
+  background-color: #2ECC71; /* أخضر مائل للإضاءة عند التمرير */
+  transform: scale(1.05);
+}
+
+.suggestions {
+  margin-top: 50px;
+  text-align: center;
+}
+
+footer {
+  background-color: #2C3E50; /* نفس الأزرق الداكن في الهيدر */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.suggestions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.suggestion-item {
+  background-color: #34495E; /* خلفية داكنة للمقترحات */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.suggestion-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.suggestion-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #F5B041; /* لون بيج مميز */
+  margin-bottom: 10px;
+}
+
+.suggestion-details h3 {
+  font-size: 22px;
+  margin: 0;
+  color: #2ECC71; /* أخضر */
+}
+
+.suggestion-details p {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.suggestion-details p:last-child {
+  font-weight: bold;
+  color: #27AE60; /* أخضر زيتوني */
+}
