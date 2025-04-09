@@ -120,6 +120,7 @@ const Home = () => {
 
   // فلترة البلدان المقترحة بناءً على الفئات والميزانية والقارة وعدد الأيام
   const filterDestinations = () => {
+    setSuggestedDestinations([]);
     const filteredDestinations = countrySuggestions.filter((country) => {
       const isCategoryMatch = selectedCategories.some((category) =>
         country.categories.includes(category)
@@ -135,6 +136,7 @@ const Home = () => {
 
   // إرسال البيانات
   const handleSubmit = () => {
+    setSuggestedDestinations([]);
     filterDestinations();
   };
 
@@ -211,17 +213,27 @@ const Home = () => {
       <section className="suggestions">
         {suggestedDestinations.length > 0 ? (
           <div className="suggestions-list">
-            {suggestedDestinations.map((destination, index) => (
-              <div key={destination.name} className="suggestion-item">
-                <div className="suggestion-number">{index + 1}</div>
-                <div className="suggestion-details">
-                  <h3>{destination.name}</h3>
-                  <p>Categories: {destination.categories.join(', ')}</p>
-                  <p>Average Cost: ${destination.averageCost}</p>
-                  <p>Total Cost for {days} days: ${destination.averageCost * days}</p>
+            {suggestedDestinations.map((destination, index) => {
+              const totalCost = destination.averageCost * days;
+              const isOverBudget = totalCost > budget; // تحقق إذا كانت التكلفة أعلى من الميزانية
+
+              return (
+                <div key={destination.name} className="suggestion-item">
+                  <div className="suggestion-number">{index + 1}</div>
+                  <div className="suggestion-details">
+                    <h3>{destination.name}</h3>
+                    <p>Categories: {destination.categories.join(', ')}</p>
+                    <p>Average Cost: ${destination.averageCost}</p>
+                    <p>Total Cost for {days} days: ${totalCost}</p>
+                    {isOverBudget && (
+                      <p className="warning-text">
+                        The total cost exceeds your budget!
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <p>No destinations match your criteria.</p>
