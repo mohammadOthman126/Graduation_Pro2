@@ -8,6 +8,7 @@ const Home = () => {
   const [days, setDays] = useState(7);
   const [suggestedDestinations, setSuggestedDestinations] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isBudgetLow, setIsBudgetLow] = useState(false);
 
 
   const continents = [
@@ -123,6 +124,7 @@ const Home = () => {
   // فلترة البلدان المقترحة بناءً على الفئات والميزانية والقارة وعدد الأيام
   const filterDestinations = () => {
     setSuggestedDestinations([]);
+    setIsBudgetLow(false);
     const filteredDestinations = countrySuggestions.filter((country) => {
       const isCategoryMatch = selectedCategories.some((category) =>
         country.categories.includes(category)
@@ -130,6 +132,11 @@ const Home = () => {
       const isContinentMatch = selectedContinent ? country.continent === selectedContinent : true;
       const totalCost = country.averageCost * days;
       const isBudgetMatch = totalCost <= budget;
+
+      if (isCategoryMatch && isContinentMatch && !isBudgetMatch) {
+        setIsBudgetLow(true); // تعيين الحالة إذا كانت الميزانية غير كافية
+      }
+
       return isCategoryMatch && isContinentMatch && isBudgetMatch;
     });
 
@@ -244,19 +251,28 @@ const Home = () => {
       })}
     </div>
   ) : hasSearched ? ( // تظهر الرسالة المحبطة إذا كان المستخدم قد بدأ البحث
-    <div className="no-results">
-      <p className="no-results-message">
-        Unfortunately, no destinations match your search. Try adjusting your filters for more options.
-      </p>
-    </div>
+    isBudgetLow ? ( // إذا كانت الميزانية هي المشكلة، تظهر هذه الرسالة
+      <div className="no-results">
+        <p className="budget-low-message">
+          😟 There are destinations that match your criteria, but your budget is too low. Try adjusting your budget or filters!
+        </p>
+      </div>
+    ) : (
+      <div className="no-results">
+        <p className="no-results-message">
+          Unfortunately, no destinations match your search. Try adjusting your filters for more options.
+        </p>
+      </div>
+    )
   ) : ( // تظهر الرسالة التحفيزية إذا لم يبدأ المستخدم البحث بعد
     <div className="no-results">
       <p className="motivational-text">
-        No destinations found for your criteria, but don't worry! Try exploring different filters to discover amazing destinations!
+      🌍 Ready to explore the world? Use the filters to start your journey and find the perfect destination for you!
       </p>
     </div>
   )}
 </section>
+
 
 
     </div>
