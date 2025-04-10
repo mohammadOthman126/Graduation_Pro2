@@ -7,6 +7,8 @@ const Home = () => {
   const [selectedContinent, setSelectedContinent] = useState('');
   const [days, setDays] = useState(7);
   const [suggestedDestinations, setSuggestedDestinations] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
+
 
   const continents = [
     'Asia', 'Europe', 'Africa', 'North America', 'South America', 'Oceania'
@@ -136,6 +138,7 @@ const Home = () => {
 
   // إرسال البيانات
   const handleSubmit = () => {
+    setHasSearched(true);
     setSuggestedDestinations([]);
     filterDestinations();
   };
@@ -216,35 +219,46 @@ const Home = () => {
       </button>
 
       <section className="suggestions">
-        {suggestedDestinations.length > 0 ? (
-          <div className="suggestions-list">
-            {suggestedDestinations.map((destination, index) => {
-              const totalCost = destination.averageCost * days;
-              const isOverBudget = totalCost > budget; // تحقق إذا كانت التكلفة أعلى من الميزانية
+  {suggestedDestinations.length > 0 ? (
+    <div className="suggestions-list">
+      {suggestedDestinations.map((destination, index) => {
+        const totalCost = destination.averageCost * days;
+        const isOverBudget = totalCost > budget;
 
-              return (
-                <div key={destination.name} className="suggestion-item">
-                  <div className="suggestion-number">{index + 1}</div>
-                  <div className="suggestion-details">
-                    <h3>{destination.name}</h3>
-                    <p>Categories: {destination.categories.join(', ')}</p>
-                    <p>Average Cost: ${destination.averageCost}</p>
-                    <p>Total Cost for {days} days: ${totalCost}</p>
-                    {isOverBudget && (
-                     <p className="budget-warning">
-                     ⚠️ The total cost exceeds budget!
-                   </p>
-                   
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+        return (
+          <div key={destination.name} className="suggestion-item">
+            <div className="suggestion-number">{index + 1}</div>
+            <div className="suggestion-details">
+              <h3>{destination.name}</h3>
+              <p>Categories: {destination.categories.join(', ')}</p>
+              <p>Average Cost: ${destination.averageCost}</p>
+              <p>Total Cost for {days} days: ${totalCost}</p>
+              {isOverBudget && (
+                <p className="budget-warning">
+                  ⚠️ The total cost exceeds budget!
+                </p>
+              )}
+            </div>
           </div>
-        ) : (
-          <p>No destinations match your criteria.</p>
-        )}
-      </section>
+        );
+      })}
+    </div>
+  ) : hasSearched ? ( // تظهر الرسالة المحبطة إذا كان المستخدم قد بدأ البحث
+    <div className="no-results">
+      <p className="no-results-message">
+        Unfortunately, no destinations match your search. Try adjusting your filters for more options.
+      </p>
+    </div>
+  ) : ( // تظهر الرسالة التحفيزية إذا لم يبدأ المستخدم البحث بعد
+    <div className="no-results">
+      <p className="motivational-text">
+        No destinations found for your criteria, but don't worry! Try exploring different filters to discover amazing destinations!
+      </p>
+    </div>
+  )}
+</section>
+
+
     </div>
   );
 };
