@@ -226,9 +226,10 @@ const Home = () => {
                     <p>Average Cost: ${destination.averageCost}</p>
                     <p>Total Cost for {days} days: ${totalCost}</p>
                     {isOverBudget && (
-                      <p className="warning-text">
-                        The total cost exceeds your budget!
-                      </p>
+                     <p className="budget-warning">
+                     ⚠️ The total cost exceeds your budget!
+                   </p>
+                   
                     )}
                   </div>
                 </div>
