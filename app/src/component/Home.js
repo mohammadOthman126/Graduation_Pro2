@@ -147,24 +147,10 @@ const Home = () => {
         <p>Explore the best travel suggestions tailored to your preferences.</p>
       </header>
 
-      <section className="category-selection">
-        <h2>Select Categories</h2>
-        <div className="categories">
-          {[
-            'Adventures', 'Historical', 'Relaxation', 'Culture', 'Nature', 'Beach',
-            'Mountains', 'Urban', 'Wildlife', 'Desert', 'Island', 'Road Trips', 'Luxury', 'Backpacking',
-          ].map((category) => (
-            <button
-              key={category}
-              className={`category-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
+      <div className='filters-grid'>
 
+      <section className="category-selection">
+      <div className="top-row">
       <section className="continent-selection">
         <h2>Select Continent</h2>
         <select onChange={handleContinentChange} value={selectedContinent}>
@@ -182,13 +168,32 @@ const Home = () => {
         <input
           type="number"
           min="1"
-          max="30"
+          max="365"
           value={days}
           onChange={handleDaysChange}
         />
         <p>Days: {days}</p>
-      </section>
+      </section> </div>
 
+
+        <h2>Select Categories</h2>
+        <div className="categories">
+          {[
+            'Adventures', 'Historical', 'Relaxation', 'Culture', 'Nature', 'Beach',
+            'Mountains', 'Urban', 'Wildlife', 'Desert', 'Island', 'Road Trips', 'Luxury', 'Backpacking',
+          ].map((category) => (
+            <button
+              key={category}
+              className={`category-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </section>
+      </div>
+      
       <section className="budget-selection">
         <h2>Select Your Budget</h2>
         <div className="range-container">
@@ -227,7 +232,7 @@ const Home = () => {
                     <p>Total Cost for {days} days: ${totalCost}</p>
                     {isOverBudget && (
                      <p className="budget-warning">
-                     ⚠️ The total cost exceeds your budget!
+                     ⚠️ The total cost exceeds budget!
                    </p>
                    
                     )}
