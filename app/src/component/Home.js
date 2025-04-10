@@ -9,6 +9,10 @@ const Home = () => {
   const [suggestedDestinations, setSuggestedDestinations] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isBudgetLow, setIsBudgetLow] = useState(false);
+  const [budgetChange, setBudgetChange] = useState(null); // لتخزين مقدار التغيير
+  const [increaseCount, setIncreaseCount] = useState(0);  // عدد النقرات للزيادة
+  const [decreaseCount, setDecreaseCount] = useState(0);  // عدد النقرات للنقصان
+   // لتخزين مقدار الزيادة أو النقصان
 
 
   const continents = [
@@ -95,7 +99,19 @@ const Home = () => {
 
   // التعامل مع تغيير الميزانية
   const handleBudgetChange = (event) => {
-    setBudget(Number(event.target.value)); 
+    const newBudget = Number(event.target.value);
+    const budgetDifference = newBudget - budget;
+    setBudget(newBudget); // تحديث الميزانية
+
+    setBudgetChange({
+      amount: Math.abs(budgetDifference), // إظهار الفرق فقط كعدد إيجابي
+      direction: budgetDifference > 0 ? 'increase' : 'decrease' // تحديد الاتجاه بناءً على الفرق
+    });
+  
+    // Reset the counts
+    setIncreaseCount(budgetDifference > 0 ? increaseCount + Math.floor(budgetDifference / 100) : 0);
+    setDecreaseCount(budgetDifference < 0 ? decreaseCount + Math.floor(Math.abs(budgetDifference) / 100) : 0);
+
   };
 
   // التعامل مع تغيير القارة
@@ -110,14 +126,21 @@ const Home = () => {
 
   // زيادة الميزانية
   const handleIncrease = () => {
-    if(budget < 50000)
-      setBudget(budget + 100);
+    const increaseAmount = 100;
+    if(budget < 50000){
+      setBudget(budget + increaseAmount);
+      setIncreaseCount(increaseCount + 1); // زيادة عدد النقرات
+    setBudgetChange({ amount: increaseAmount * (increaseCount + 1), direction: 'increase' }); 
+    }
   };
 
   // تقليل الميزانية
   const handleDecrease = () => {
+    const decreaseAmount = 100;
     if (budget > 100) {
-      setBudget(budget - 100);
+      setBudget(budget - decreaseAmount);
+      setDecreaseCount(decreaseCount + 1); // زيادة عدد النقرات
+    setBudgetChange({ amount: decreaseAmount * (decreaseCount + 1), direction: 'decrease' });
     }
   };
 
@@ -219,6 +242,13 @@ const Home = () => {
           <button className="adjust-buttons" onClick={handleIncrease}>+</button>
         </div>
         <p>Budget: ${budget}</p>
+          {/* عرض التغيير بجانب الميزانية */}
+  {budgetChange && (
+    <p className={`budget-change ${budgetChange.direction}`}>
+      {budgetChange.direction === 'increase' ? '▲' : '▼'} ${budgetChange.amount}
+      {budgetChange.direction === 'increase' ? ' increase' : ' decrease'}
+    </p>
+  )}
       </section>
 
       <button onClick={handleSubmit} className="suggestions-btn">

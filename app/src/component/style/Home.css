@@ -434,5 +434,18 @@ footer {
     opacity: 1;
   }
 }
+/* الأنماط الخاصة بالتغيير في الميزانية */
+.budget-change {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.budget-change.increase {
+  color: green;
+}
+
+.budget-change.decrease {
+  color: red;
+}
 
 
