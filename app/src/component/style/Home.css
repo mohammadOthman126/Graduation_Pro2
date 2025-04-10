@@ -334,6 +334,10 @@ footer {
   transform: scale(0.95); /* تصغير الزر عند الضغط عليه */
   transition: transform 0.1s ease;
 }
+.suggestions-btn:active {
+  transform: scale(0.95); /* تصغير الزر عند الضغط عليه */
+  transition: transform 0.1s ease;
+}
 
 
 
