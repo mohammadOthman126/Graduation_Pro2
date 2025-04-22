@@ -7,6 +7,10 @@ const JWT_REFRESH_SECRET=process.env.JWT_REFRESH_SECRET;
 const register= async(req,res)=>{
     const {username,email,password}=req.body;
     try {
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+          return res.status(400).json({ message: 'Email is already in use.' });
+        }
         const user=await UserModel({username,email,password});
         await user.save();
         res.status(201).json(user);

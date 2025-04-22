@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, FormControl, FormLabel, Divider, Link } from '@mui/material';
 import { Google, Facebook } from '@mui/icons-material';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState('');
 
   const validateForm = () => {
     let isValid = true;
 
-    // التحقق من الاسم
-    if (!name) {
-      setNameError('Name is required.');
+    if (!username) {
+      setUsernameError('Username is required.');
       isValid = false;
     } else {
-      setNameError('');
+      setUsernameError('');
     }
 
-    // التحقق من البريد الإلكتروني
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setEmailError('Please enter a valid email.');
       isValid = false;
@@ -30,7 +29,6 @@ const Register = () => {
       setEmailError('');
     }
 
-    // التحقق من كلمة المرور
     if (!password || password.length < 6) {
       setPasswordError('Password must be at least 6 characters.');
       isValid = false;
@@ -41,16 +39,67 @@ const Register = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // هنا يمكنك إضافة كود لرفع البيانات إلى الخادم (مثل API أو Firebase)
-      console.log({ name, email, password });
+      try {
+        const response = await fetch('http://localhost:5000/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // ✅ لو التسجيل تمام
+          toast.success('Registered Successfully! 🎉');
+
+          setEmail('');
+          setPassword('');
+          setUsername('');
+          setEmailError('');
+          setPasswordError('');
+          setUsernameError('');
+          
+          // لو السيرفر رجع توكن بنحفظه
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+          }
+
+          // التوجيه لصفحة تسجيل الدخول بعد النجاح
+          setTimeout(() => {
+            window.location.href = '/login'; // سيتم نقلك لصفحة login بعد التسجيل
+          }, 3000); // تأخير 2 ثانية عشان المستخدم يقدر يشوف الرسالة
+
+        } else {
+          // ❌ لو الإيميل موجود
+          toast.error(data.message || 'Registration failed!');
+          // إفراغ الخانات وإعادة تحميل الصفحة
+          setEmail('');
+          setPassword('');
+          setUsername('');
+          setEmailError('');
+          setPasswordError('');
+          setUsernameError('');
+          
+          // إعادة تحميل الصفحة (يمكنك استبدال ذلك بتصفير الخانات فقط لو تفضل)
+          setTimeout(() => {
+            window.location.reload(); // إعادة تحميل الصفحة
+          }, 1500); // تأخير صغير قبل التحديث
+        }
+      } catch (error) {
+        toast.error('Something went wrong!');
+        console.error('Registration error:', error);
+      }
     }
   };
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: 2 }}>
+      <ToastContainer position="top-center" />
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -60,22 +109,20 @@ const Register = () => {
           Sign Up
         </Typography>
 
-        {/* اسم المستخدم */}
         <FormControl fullWidth margin="normal">
-          <FormLabel htmlFor="name">Full Name</FormLabel>
+          <FormLabel htmlFor="username">Username</FormLabel>
           <TextField
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            error={Boolean(nameError)}
-            helperText={nameError}
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            error={Boolean(usernameError)}
+            helperText={usernameError}
             fullWidth
             required
           />
         </FormControl>
 
-        {/* البريد الإلكتروني */}
         <FormControl fullWidth margin="normal">
           <FormLabel htmlFor="email">Email Address</FormLabel>
           <TextField
@@ -90,7 +137,6 @@ const Register = () => {
           />
         </FormControl>
 
-        {/* كلمة المرور */}
         <FormControl fullWidth margin="normal">
           <FormLabel htmlFor="password">Password</FormLabel>
           <TextField
@@ -106,7 +152,6 @@ const Register = () => {
           />
         </FormControl>
 
-        {/* زر التسجيل */}
         <Button
           type="submit"
           variant="contained"
@@ -123,7 +168,6 @@ const Register = () => {
           </Typography>
         </Divider>
 
-        {/* التسجيل باستخدام حسابات خارجية */}
         <Button
           variant="outlined"
           fullWidth
@@ -143,7 +187,6 @@ const Register = () => {
           Sign up with Facebook
         </Button>
 
-        {/* رابط لتسجيل الدخول إذا كان المستخدم لديه حساب */}
         <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
           Already have an account?{' '}
           <Link href="/login" color="primary">
