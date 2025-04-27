@@ -85,6 +85,26 @@ const Home = () => {
     { name: "Andorra", continent: "Europe", categories: ["Nature", "Luxury"], averageCost: 200 },
     { name: "Monaco", continent: "Europe", categories: ["Luxury", "Beach"], averageCost: 500 }
   ];
+  
+  const categoryImages = {
+    Adventures: 'adventure.jpg',
+    Historical: 'historical.jpg',
+    Relaxation: 'a.jpg',
+    Culture: 'cultural.jpg',
+    Nature: 'nature.jpg',
+    Beach: 'beach.jpg',
+    Mountains: 'mountain.jpg',
+    Urban: 'nature.jpg',
+    Wildlife: 'wildlife.jpg',
+    Desert: 'desert.jpg',
+    Island: 'island.jpg',
+    'Road Trips': 'a.jpg',
+    Luxury: 'city.jpg',
+    Backpacking: 'wildlife.jpg',
+  };
+  
+  
+
 
   // التعامل مع تغيير الفئات
   const handleCategoryChange = (category) => {
@@ -211,19 +231,32 @@ const Home = () => {
 
         <h2>Select Categories</h2>
         <div className="categories">
-          {[
-            'Adventures', 'Historical', 'Relaxation', 'Culture', 'Nature', 'Beach',
-            'Mountains', 'Urban', 'Wildlife', 'Desert', 'Island', 'Road Trips', 'Luxury', 'Backpacking',
-          ].map((category) => (
-            <button
-              key={category}
-              className={`category-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+  {[
+    'Adventures', 'Historical', 'Relaxation', 'Culture', 'Nature', 'Beach',
+    'Mountains', 'Urban', 'Wildlife', 'Desert', 'Island', 'Road Trips', 'Luxury', 'Backpacking',
+  ].map((category) => (
+    <label key={category} className="category-checkbox-label">
+      <input
+        type="checkbox"
+        className="category-checkbox"
+        checked={selectedCategories.includes(category)}
+        onChange={() => handleCategoryChange(category)}
+      />
+      <div
+        className="category-checkbox-btn"
+        style={{
+          backgroundImage: `url(/images/${categoryImages[category]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <span>{category}</span>
+      </div>
+    </label>
+  ))}
+</div>
+
+
       </section>
       </div>
       

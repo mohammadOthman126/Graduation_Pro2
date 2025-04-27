@@ -519,4 +519,71 @@ footer {
     opacity: 1;
   }
 }
+/************************************/
+/* تنسيق الـ label بشكل جيد */
+.category-checkbox-label {
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+  margin-left: 130px; /* تحريك الـ checkbox لليمين */
+}
 
+/* إخفاء مربع الاختيار الأصلي */
+.category-checkbox {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;  /* جعله غير مرئي */
+}
+
+/* تنسيق زر الـ checkbox */
+.category-checkbox-btn {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);  /* خلفية شفافة إذا كانت الصورة غير موجودة */
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+}
+
+/* تنسيق النص داخل الـ checkbox */
+.category-checkbox-btn span {
+  position: absolute;
+  z-index: 2;
+  font-size: 16px;
+}
+
+/* تأثير التفاعل مع الـ checkbox عند التمرير */
+.category-checkbox-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* تغيير الخلفية عند التحديد */
+.category-checkbox:checked + .category-checkbox-btn {
+  background-color: rgba(0, 0, 0, 0.5);  /* تغيير اللون عند التحديد */
+}
+
+.category-checkbox:checked + .category-checkbox-btn span {
+  color: yellow;  /* تغيير لون النص عند التحديد */
+}
+
+/* عند التمرير على النص (لتحسين الوضوح) */
+.category-checkbox-btn span:hover {
+  color: yellow;
+}
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* اثنان في صف */
+  gap: 20px;
+  justify-content: center; /* لضبط المحاذاة التلقائية */
+  margin-left: 20px; /* تعديل المسافة من اليسار */
+}
