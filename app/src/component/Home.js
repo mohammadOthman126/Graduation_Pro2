@@ -235,26 +235,26 @@ const Home = () => {
     'Adventures', 'Historical', 'Relaxation', 'Culture', 'Nature', 'Beach',
     'Mountains', 'Urban', 'Wildlife', 'Desert', 'Island', 'Road Trips', 'Luxury', 'Backpacking',
   ].map((category) => (
-    <label key={category} className="category-checkbox-label">
+    <label key={category} className={`category-card ${selectedCategories.includes(category) ? 'selected' : ''}`}>
       <input
         type="checkbox"
-        className="category-checkbox"
+        className="hidden-checkbox"
         checked={selectedCategories.includes(category)}
         onChange={() => handleCategoryChange(category)}
       />
+      <div class="checkmark">✔</div>
       <div
-        className="category-checkbox-btn"
+        className="card-content"
         style={{
           backgroundImage: `url(/images/${categoryImages[category]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
         }}
       >
-        <span>{category}</span>
+        <span className="category-name">{category}</span>
       </div>
     </label>
   ))}
 </div>
+
 
 
       </section>
