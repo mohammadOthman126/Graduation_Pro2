@@ -37,4 +37,46 @@ const login= async (req,res)=>{
         res.status(500).json({message:error});
     }
 }
-module.exports={register,login};
+const updateProfile = async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'Unauthorized' });
+  
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+      const { username, email } = req.body;
+  
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        userId,
+        { username, email },
+        { new: true }
+      );
+  
+      res.status(200).json({ user: updatedUser });
+    } catch (err) {
+      res.status(500).json({ message: 'Error updating profile', error: err.message });
+    }
+  };
+  
+const changePassword = async (req, res) => {
+  const userId = req.user.id; // تم استخلاصه من الـ middleware
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    const user = await UserModel.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const isMatch = await user.matchPassword(oldPassword);
+    if (!isMatch) return res.status(400).json({ message: 'Old password is incorrect' });
+
+    // تحديث كلمة المرور
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports={register,login,updateProfile,changePassword};

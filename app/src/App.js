@@ -6,6 +6,7 @@ import Home from './component/Home';
 import Hello from './component/Hello';
 import CredentialsSignInPage from './component/Login';
 import Register from './component/register';
+import Account from './component/account';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/hello" element={<Hello />} />
         <Route path="/login" element={< CredentialsSignInPage/>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/account" element={<Account />} />
         
       </Routes>
     </Router>
