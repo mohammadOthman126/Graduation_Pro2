@@ -45,12 +45,15 @@ const Login = () => {
         });
 
         const data = await response.json();
+        console.log('Login response data:', data);
+
 
         if (!response.ok) {
           setErrorMessage(data.message || 'Login failed, please try again');
         } else {
           // في حال نجاح عملية الدخول، يمكنك تخزين التوكن أو إجراء ما تريد
           localStorage.setItem('authToken', data.token); // إذا كنت تستخدم JWT
+          localStorage.setItem('userData', JSON.stringify(data.user));
           navigate('/'); // أو الصفحة الرئيسية بعد تسجيل الدخول
         }
       } catch (error) {
