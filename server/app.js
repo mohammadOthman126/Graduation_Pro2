@@ -6,6 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const UserRouter=require('../server/routes/userRoute');
+const CountryRouter=require('../server/routes/countryRoute')
 
 const app=express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/auth',UserRouter);
+app.use('/auth',CountryRouter);
 mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser:true,
     useUnifiedTopology:true
