@@ -79,4 +79,18 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports={register,login,updateProfile,changePassword};
+const deleteAccount = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const user = await UserModel.findByIdAndDelete(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Account deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+module.exports={register,login,updateProfile,changePassword,deleteAccount};
