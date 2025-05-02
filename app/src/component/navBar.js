@@ -48,7 +48,7 @@ export default function ButtonAppBar() {
 
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'space-around' }}>
           <Button  color="inherit"  component={Link}  to="/"  sx={{ mx: 2 }}   className="navbar-button"> Home   </Button>
-          <Button  color="inherit"  component={Link}  to="/hello"  sx={{ mx: 2 }}   className="navbar-button"> News   </Button>
+          <Button  color="inherit"  component={Link}  to="/Cart"  sx={{ mx: 2 }}   className="navbar-button"> Cart   </Button>
         </Box>
         {userToken ? (
   <Box sx={{ display: 'flex', alignItems: 'center' }}>
