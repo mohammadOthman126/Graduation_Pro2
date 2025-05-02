@@ -615,5 +615,24 @@ footer {
   animation: flipIn 0.5s ease-out;
   transform-style: preserve-3d;
 }
+/*------------------------*/
+.suggestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  color: red;
+}
 
 

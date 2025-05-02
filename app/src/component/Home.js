@@ -1,5 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import './style/Home.css'; // التنسيق الخاص بالصفحة
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -145,6 +148,37 @@ const Home = () => {
     filterDestinations();
   };
 
+  const handleAddToCart = async (destination) => {
+    const token = localStorage.getItem('authToken'); // تحقق من وجود التوكن
+    if (!token) {
+      toast.error('يجب تسجيل الدخول لإضافة الوجهة إلى السلة!');
+      return;
+    }
+  
+    // تأكد من وجود جميع البيانات
+    const { _id, name, averageCost, categories, continent } = destination;
+  
+    try {
+      const response = await fetch('http://localhost:5000/auth/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ destinationId: _id, name, averageCost, categories, continent }), // إضافة البيانات المطلوبة
+      });
+  
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'فشل في الإضافة');
+  
+      toast.success('✅ تم إضافة الوجهة إلى السلة!');
+    } catch (error) {
+      toast.error(`❌ خطأ: ${error.message}`);
+    }
+  };
+  
+  
+
   return (
     <div className="home">
       <header className="header">
@@ -249,7 +283,16 @@ const Home = () => {
 
         return (
           <div key={destination.name} className="suggestion-item">
+               <div className="suggestion-header">
             <div className="suggestion-number">{index + 1}</div>
+            <button
+          className="add-to-cart-btn"
+          onClick={() => handleAddToCart(destination)}
+          title="Add to cart"
+            >
+                      ❤️
+            </button>
+            </div>
             <div className="suggestion-details">
               <h3>{destination.name}</h3>
               <p>Categories: {destination.categories.join(', ')}</p>
@@ -288,6 +331,7 @@ const Home = () => {
   )}
 </section>
 
+<ToastContainer />
 
 
     </div>

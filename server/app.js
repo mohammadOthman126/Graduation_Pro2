@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const UserRouter=require('../server/routes/userRoute');
 const CountryRouter=require('../server/routes/countryRoute')
+const CartRouter=require('../server/routes/cartRoute');
 
 const app=express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use('/auth',UserRouter);
 app.use('/auth',CountryRouter);
+app.use('/auth',CartRouter);
 mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser:true,
     useUnifiedTopology:true
